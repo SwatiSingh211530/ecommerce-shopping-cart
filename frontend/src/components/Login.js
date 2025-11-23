@@ -15,7 +15,7 @@ export default function Login({ onLogin, switchToRegister }) {
     
     setLoading(true);
     try {
-      const res = await axios.post('http://localhost:5000/api/users/login', { username, password });
+      const res = await axios.post(`${process.env.REACT_APP_API_BASE_URL}/api/users/login`, { username, password });
       const { token } = res.data;
       if (!token) return window.alert('❌ Invalid username/password');
       onLogin(token);
@@ -41,6 +41,49 @@ export default function Login({ onLogin, switchToRegister }) {
         <div className="login-header">
           <div className="login-logo">🛒</div>
           <h1 className="login-title">Sign in to ShopMart</h1>
+        </div>
+
+        {/* Demo Credentials Section */}
+        <div className="demo-credentials">
+          <h3 style={{margin: '0 0 10px 0', color: '#667eea', fontSize: '14px'}}>🎯 Try Demo Account</h3>
+          <div className="demo-buttons">
+            <button 
+              type="button" 
+              onClick={() => {setUsername('demo'); setPassword('demo123');}} 
+              className="demo-btn"
+              style={{
+                background: '#667eea',
+                color: 'white',
+                border: 'none',
+                padding: '8px 12px',
+                borderRadius: '6px',
+                fontSize: '12px',
+                cursor: 'pointer',
+                marginRight: '8px'
+              }}
+            >
+              Demo User
+            </button>
+            <button 
+              type="button" 
+              onClick={() => {setUsername('admin'); setPassword('admin123');}} 
+              className="demo-btn"
+              style={{
+                background: '#764ba2',
+                color: 'white',
+                border: 'none',
+                padding: '8px 12px',
+                borderRadius: '6px',
+                fontSize: '12px',
+                cursor: 'pointer'
+              }}
+            >
+              Admin User
+            </button>
+          </div>
+          <p style={{fontSize: '11px', color: '#666', margin: '8px 0 15px 0'}}>
+            Click to auto-fill credentials, then login
+          </p>
         </div>
         
         <form onSubmit={submit}>

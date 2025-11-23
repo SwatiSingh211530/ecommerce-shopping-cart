@@ -1382,6 +1382,34 @@ body::before {
   cursor: not-allowed;
 }
 
+/* Demo Credentials */
+.demo-credentials {
+  background: linear-gradient(135deg, #f8f9ff 0%, #e8f2ff 100%);
+  border: 1px solid #e0e7ff;
+  border-radius: 8px;
+  padding: 15px;
+  margin-bottom: 20px;
+  text-align: center;
+  animation: fadeIn 0.5s var(--smooth);
+}
+
+.demo-buttons {
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+  margin-bottom: 8px;
+}
+
+.demo-btn {
+  transition: all 0.2s ease !important;
+  font-family: inherit !important;
+}
+
+.demo-btn:hover {
+  transform: translateY(-1px) !important;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2) !important;
+}
+
 .divider {
   text-align: center;
   margin: 20px 0;

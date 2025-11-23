@@ -27,7 +27,41 @@ Notes
 - No inventory tracking (infinite stock assumed).
 - Real product data loaded from Fake Store API on first run.
 
-Quick Start
+## Environment Setup
+
+**Frontend Environment Variables (.env file in frontend folder):**
+```env
+# Production (default)
+REACT_APP_API_BASE_URL=https://ecommerce-shopping-cart-awyn.onrender.com
+
+# For local development, use:
+# REACT_APP_API_BASE_URL=http://localhost:5000
+```
+
+**Backend Environment Variables (.env file in backend folder):**
+```env
+PORT=5000
+MONGO=mongodb+srv://your-connection-string
+JWT_SECRET=your-secure-jwt-secret
+NODE_ENV=development
+CORS_ORIGIN=http://localhost:3000
+```
+
+## Demo Credentials
+
+Try the app instantly with these demo credentials:
+
+**Demo Account:**
+- **Username:** `demo`
+- **Password:** `demo123`
+
+**Admin Account:**
+- **Username:** `admin`
+- **Password:** `admin123`
+
+*Note: These accounts are created automatically when the server starts.*
+
+## Quick Start
 ```bash
 # Run the batch file to start both servers automatically
 start-servers.bat

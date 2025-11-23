@@ -9,9 +9,74 @@ const itemsRoutes = require('./routes/items');
 const cartsRoutes = require('./routes/carts');
 const ordersRoutes = require('./routes/orders');
 const Item = require('./models/Item');
+const User = require('./models/User');
+const bcrypt = require('bcryptjs');
 
-app.use(cors());
-app.use(express.json());
+// CORS configuration for production and development
+const corsOptions = {
+  origin: [
+    'http://localhost:3000',
+    'https://localhost:3000',
+    'https://ecommerce-shopping-cart-swatisingh211530s-projects.vercel.app',
+    'https://ecommerce-shopping-cart-git-master-swatisingh211530s-projects.vercel.app',
+    'https://ecommerce-shopping-cart-awyn.onrender.com',
+    process.env.FRONTEND_URL,
+    process.env.CORS_ORIGIN
+  ].filter(Boolean), // Remove undefined values
+  credentials: true,
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
+  allowedHeaders: [
+    'Origin',
+    'X-Requested-With',
+    'Content-Type',
+    'Accept',
+    'Authorization',
+    'Cache-Control',
+    'Pragma'
+  ],
+  optionsSuccessStatus: 200 // For legacy browser support
+};
+
+app.use(cors(corsOptions));
+app.use(express.json({ limit: '50mb' }));
+app.use(express.urlencoded({ extended: true, limit: '50mb' }));
+
+// Security headers
+app.use((req, res, next) => {
+  res.header('Access-Control-Allow-Credentials', 'true');
+  res.header('X-Content-Type-Options', 'nosniff');
+  res.header('X-Frame-Options', 'DENY');
+  res.header('X-XSS-Protection', '1; mode=block');
+  next();
+});
+
+// Handle preflight requests
+app.options('*', cors(corsOptions));
+
+// Root endpoint
+app.get('/', (req, res) => {
+  res.json({
+    message: 'E-Commerce Shopping Cart API',
+    version: '1.0.0',
+    status: 'running',
+    timestamp: new Date().toISOString(),
+    endpoints: {
+      users: '/api/users',
+      items: '/api/items',
+      carts: '/api/carts',
+      orders: '/api/orders'
+    }
+  });
+});
+
+// Health check endpoint
+app.get('/health', (req, res) => {
+  res.json({
+    status: 'healthy',
+    timestamp: new Date().toISOString(),
+    uptime: process.uptime()
+  });
+});
 
 app.use('/api/users', usersRoutes);
 app.use('/api/items', itemsRoutes);
@@ -389,6 +454,30 @@ mongoose.connect(MONGO, { useNewUrlParser: true, useUnifiedTopology: true })
         console.log('Seeded fallback items');
       }
     }
+
+    // Create demo users if they don't exist
+    try {
+      const demoUsers = [
+        { username: 'demo', password: 'demo123' },
+        { username: 'admin', password: 'admin123' }
+      ];
+
+      for (const demoUser of demoUsers) {
+        const existingUser = await User.findOne({ username: demoUser.username });
+        if (!existingUser) {
+          const hashedPassword = await bcrypt.hash(demoUser.password, 10);
+          const user = new User({ 
+            username: demoUser.username, 
+            password: hashedPassword 
+          });
+          await user.save();
+          console.log(`Created demo user: ${demoUser.username}`);
+        }
+      }
+    } catch (error) {
+      console.log('Note: Demo users may already exist or there was an error:', error.message);
+    }
+
     app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
   })
   .catch(err => {

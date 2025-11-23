@@ -17,7 +17,7 @@ export default function Orders({ token, onBack, formatPrice, onRemoveFromCart })
 
   const fetchOrders = async () => {
     try {
-      const res = await axios.get('http://localhost:5000/api/orders', {
+      const res = await axios.get(`${process.env.REACT_APP_API_BASE_URL}/api/orders`, {
         headers: { Authorization: `Bearer ${token}` }
       });
       // Handle different response structures
@@ -86,7 +86,7 @@ export default function Orders({ token, onBack, formatPrice, onRemoveFromCart })
 
   const viewOrderDetails = async (orderId) => {
     try {
-      const res = await axios.get(`http://localhost:5000/api/orders/${orderId}`, {
+      const res = await axios.get(`${process.env.REACT_APP_API_BASE_URL}/api/orders/${orderId}`, {
         headers: { Authorization: `Bearer ${token}` }
       });
       const orderData = res.data || {};
@@ -116,7 +116,7 @@ export default function Orders({ token, onBack, formatPrice, onRemoveFromCart })
 
   const trackOrder = async (orderId) => {
     try {
-      const res = await axios.get(`http://localhost:5000/api/orders/${orderId}/track`, {
+      const res = await axios.get(`${process.env.REACT_APP_API_BASE_URL}/api/orders/${orderId}/track`, {
         headers: { Authorization: `Bearer ${token}` }
       });
       const trackingData = res.data || {};
@@ -136,7 +136,7 @@ export default function Orders({ token, onBack, formatPrice, onRemoveFromCart })
     if (!window.confirm('Are you sure you want to cancel this order?')) return;
 
     try {
-      await axios.patch(`http://localhost:5000/api/orders/${orderId}/cancel`, {
+      await axios.patch(`${process.env.REACT_APP_API_BASE_URL}/api/orders/${orderId}/cancel`, {
         reason: 'Customer requested cancellation'
       }, {
         headers: { Authorization: `Bearer ${token}` }
@@ -154,7 +154,7 @@ export default function Orders({ token, onBack, formatPrice, onRemoveFromCart })
     if (!window.confirm('Would you like to reorder these items?')) return;
 
     try {
-      const res = await axios.post(`http://localhost:5000/api/orders/${orderId}/reorder`, {}, {
+      const res = await axios.post(`${process.env.REACT_APP_API_BASE_URL}/api/orders/${orderId}/reorder`, {}, {
         headers: { Authorization: `Bearer ${token}` }
       });
       alert(`New order created: ${res.data.orderNumber}`);
@@ -192,7 +192,7 @@ export default function Orders({ token, onBack, formatPrice, onRemoveFromCart })
     }
 
     try {
-      const response = await fetch(`http://localhost:5000/api/orders/${orderId}/items/${itemId}`, {
+      const response = await fetch(`${process.env.REACT_APP_API_BASE_URL}/api/orders/${orderId}/items/${itemId}`, {
         method: 'DELETE',
         headers: {
           'Authorization': `Bearer ${token}`,

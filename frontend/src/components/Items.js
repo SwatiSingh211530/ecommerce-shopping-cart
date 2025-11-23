@@ -26,7 +26,7 @@ export default function Items({ token, cartCount, setCartCount, onCartUpdate, se
 
   const fetchItems = async () => {
     try {
-      const res = await axios.get('http://localhost:5000/api/items');
+      const res = await axios.get(`${process.env.REACT_APP_API_BASE_URL}/api/items`);
       const itemsData = res.data || [];
 
       // Fetch bra and panty products from free API with real photos
@@ -263,7 +263,7 @@ export default function Items({ token, cartCount, setCartCount, onCartUpdate, se
     }
 
     try {
-      const res = await axios.get('http://localhost:5000/api/carts', {
+      const res = await axios.get(`${process.env.REACT_APP_API_BASE_URL}/api/carts`, {
         headers: { Authorization: `Bearer ${token}` }
       });
       const carts = res.data || [];
@@ -288,7 +288,7 @@ export default function Items({ token, cartCount, setCartCount, onCartUpdate, se
 
     setAddingToCart(item._id);
     try {
-      await axios.post('http://localhost:5000/api/carts', { item_id: item._id }, {
+      await axios.post(`${process.env.REACT_APP_API_BASE_URL}/api/carts`, { item_id: item._id }, {
         headers: { Authorization: `Bearer ${token}` }
       });
       const newCartCount = cartCount + 1;
@@ -314,7 +314,7 @@ export default function Items({ token, cartCount, setCartCount, onCartUpdate, se
     }
 
     try {
-      const res = await axios.get('http://localhost:5000/api/carts', {
+      const res = await axios.get(`${process.env.REACT_APP_API_BASE_URL}/api/carts`, {
         headers: { Authorization: `Bearer ${token}` }
       });
       const carts = res.data || [];
@@ -347,7 +347,7 @@ export default function Items({ token, cartCount, setCartCount, onCartUpdate, se
     }
 
     try {
-      await axios.post('http://localhost:5000/api/orders', {}, {
+      await axios.post(`${process.env.REACT_APP_API_BASE_URL}/api/orders`, {}, {
         headers: { Authorization: `Bearer ${token}` }
       });
       setCartCount(0);
@@ -369,7 +369,7 @@ export default function Items({ token, cartCount, setCartCount, onCartUpdate, se
     }
 
     try {
-      const res = await axios.get('http://localhost:5000/api/orders', {
+      const res = await axios.get(`${process.env.REACT_APP_API_BASE_URL}/api/orders`, {
         headers: { Authorization: `Bearer ${token}` }
       });
       const orders = res.data || [];

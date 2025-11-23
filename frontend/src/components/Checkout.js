@@ -32,7 +32,7 @@ export default function Checkout({ token, cartCount, setCartCount, onCartUpdate,
 
   const fetchCartData = async () => {
     try {
-      const res = await axios.get('http://localhost:5000/api/carts', {
+      const res = await axios.get(`${process.env.REACT_APP_API_BASE_URL}/api/carts`, {
         headers: { Authorization: `Bearer ${token}` }
       });
       const carts = res.data || [];
@@ -101,7 +101,7 @@ export default function Checkout({ token, cartCount, setCartCount, onCartUpdate,
         }
       };
 
-      const res = await axios.post('http://localhost:5000/api/orders', orderData, {
+      const res = await axios.post(`${process.env.REACT_APP_API_BASE_URL}/api/orders`, orderData, {
         headers: { Authorization: `Bearer ${token}` }
       });
 
