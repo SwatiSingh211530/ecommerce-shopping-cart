@@ -1,40 +1,30 @@
 {
-  "name": "ecommerce-shopping-cart",
+  "name": "ecommerce-frontend",
   "version": "1.0.0",
-  "description": "Complete MERN Stack E-Commerce Shopping Cart with Order Management",
-  "main": "backend/server.js",
+  "private": true,
+  "dependencies": {
+    "axios": "^1.4.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-scripts": "5.0.1"
+  },
   "scripts": {
-    "dev": "concurrently \"npm run server\" \"npm run client\"",
-    "server": "cd backend && node server.js",
-    "client": "cd frontend && npm start",
-    "build": "cd frontend && npm install && npm run build",
-    "vercel-build": "cd frontend && npm install && npm run build",
-    "install-all": "npm run install-backend && npm run install-frontend",
-    "install-backend": "cd backend && npm install",
-    "install-frontend": "cd frontend && npm install"
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "vercel-build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
   },
-  "repository": {
-    "type": "git",
-    "url": "."
-  },
-  "keywords": [
-    "react",
-    "nodejs",
-    "mongodb",
-    "express",
-    "ecommerce",
-    "shopping-cart",
-    "mern",
-    "jwt",
-    "authentication"
-  ],
-  "author": "Developer",
-  "license": "MIT",
-  "devDependencies": {
-    "concurrently": "^8.2.2"
-  },
-  "engines": {
-    "node": ">=14.0.0",
-    "npm": ">=6.0.0"
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
   }
 }
