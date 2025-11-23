@@ -17,6 +17,7 @@ const corsOptions = {
   origin: [
     'http://localhost:3000',
     'https://localhost:3000',
+    'https://ecommerce-shopping-cart-m5ys.vercel.app',
     'https://ecommerce-shopping-cart-swatisingh211530s-projects.vercel.app',
     'https://ecommerce-shopping-cart-git-master-swatisingh211530s-projects.vercel.app',
     'https://ecommerce-shopping-cart-awyn.onrender.com',
