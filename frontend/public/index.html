@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#667eea">
+    <meta name="description" content="ShopCart Pro - Your favorite e-commerce shopping experience">
+    <title>ShopCart Pro - E-Commerce Shopping Cart</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🛒</text></svg>">
+    <style>
+        /* Loading animation for initial page load */
+        .initial-loading {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            color: white;
+        }
+        .initial-loading .spinner {
+            width: 50px;
+            height: 50px;
+            border: 4px solid rgba(255,255,255,0.3);
+            border-top: 4px solid white;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        .initial-loading h1 {
+            margin-top: 20px;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-size: 2rem;
+            font-weight: 300;
+        }
+        .initial-loading p {
+            margin-top: 10px;
+            opacity: 0.8;
+            font-size: 1rem;
+        }
+    </style>
+</head>
+<body>
+    <noscript>
+        <div style="text-align: center; padding: 50px; font-family: Arial, sans-serif;">
+            <h1>JavaScript Required</h1>
+            <p>Please enable JavaScript in your browser to use ShopCart Pro.</p>
+        </div>
+    </noscript>
+    
+    <!-- Initial loading screen -->
+    <div id="initial-loading" class="initial-loading">
+        <div style="font-size: 4rem; margin-bottom: 20px;">🛒</div>
+        <div class="spinner"></div>
+        <h1>ShopCart Pro</h1>
+        <p>Loading your shopping experience...</p>
+    </div>
+
+    <div id="root"></div>
+
+    <script>
+        // Hide loading screen once React app loads
+        window.addEventListener('load', function() {
+            setTimeout(function() {
+                const loading = document.getElementById('initial-loading');
+                if (loading) {
+                    loading.style.opacity = '0';
+                    loading.style.transition = 'opacity 0.5s ease';
+                    setTimeout(() => loading.remove(), 500);
+                }
+            }, 1000); // Show loading for at least 1 second
+        });
+    </script>
+</body>
+</html>
+</body>
+</html>

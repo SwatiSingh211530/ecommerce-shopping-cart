@@ -1,0 +1,38 @@
+{
+  "name": "ecommerce-shopping-cart",
+  "version": "1.0.0",
+  "description": "Complete MERN Stack E-Commerce Shopping Cart with Order Management",
+  "main": "backend/server.js",
+  "scripts": {
+    "dev": "concurrently \"npm run server\" \"npm run client\"",
+    "server": "cd backend && node server.js",
+    "client": "cd frontend && npm start",
+    "install-all": "npm run install-backend && npm run install-frontend",
+    "install-backend": "cd backend && npm install",
+    "install-frontend": "cd frontend && npm install"
+  },
+  "repository": {
+    "type": "git",
+    "url": "."
+  },
+  "keywords": [
+    "react",
+    "nodejs",
+    "mongodb",
+    "express",
+    "ecommerce",
+    "shopping-cart",
+    "mern",
+    "jwt",
+    "authentication"
+  ],
+  "author": "Developer",
+  "license": "MIT",
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  },
+  "engines": {
+    "node": ">=14.0.0",
+    "npm": ">=6.0.0"
+  }
+}
