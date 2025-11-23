@@ -13,10 +13,10 @@ const Item = require('./models/Item');
 app.use(cors());
 app.use(express.json());
 
-app.use('/users', usersRoutes);
-app.use('/items', itemsRoutes);
-app.use('/carts', cartsRoutes);
-app.use('/orders', ordersRoutes);
+app.use('/api/users', usersRoutes);
+app.use('/api/items', itemsRoutes);
+app.use('/api/carts', cartsRoutes);
+app.use('/api/orders', ordersRoutes);
 
 const PORT = process.env.PORT || 5000;
 const MONGO = process.env.MONGO || 'mongodb://127.0.0.1:27017/ecommerce';

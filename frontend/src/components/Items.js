@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import ImageWithFallback from './ImageWithFallback';
+import { testImageLoading, logPublicUrl } from '../utils/imageDebug';
 
 export default function Items({ token, cartCount, setCartCount, onCartUpdate, searchQuery, onLogout, formatPrice }) {
   const [items, setItems] = useState([]);
@@ -12,6 +14,10 @@ export default function Items({ token, cartCount, setCartCount, onCartUpdate, se
   const [categories, setCategories] = useState([]);
 
   useEffect(() => {
+    // Debug image loading
+    logPublicUrl();
+    testImageLoading();
+    
     fetchItems();
     if (token) {
       fetchCartCount();
@@ -20,7 +26,7 @@ export default function Items({ token, cartCount, setCartCount, onCartUpdate, se
 
   const fetchItems = async () => {
     try {
-      const res = await axios.get('http://localhost:5000/items');
+      const res = await axios.get('http://localhost:5000/api/items');
       const itemsData = res.data || [];
 
       // Fetch bra and panty products from free API with real photos
@@ -32,7 +38,7 @@ export default function Items({ token, cartCount, setCartCount, onCartUpdate, se
             _id: 'bra001',
             name: 'Lace Push-Up Bra - Black',
             price: 35.99,
-            image: '/images/Lace Push-Up Bra - Black.avif',
+            image: `${process.env.PUBLIC_URL}/images/Lace Push-Up Bra - Black.avif`,
             category: 'ladies-garments',
             description: 'Elegant black lace push-up bra with enhanced support and comfort',
             rating: { rate: 4.8, count: 156 },
@@ -42,7 +48,7 @@ export default function Items({ token, cartCount, setCartCount, onCartUpdate, se
             _id: 'bra002',
             name: 'Sports Bra - Pink',
             price: 28.99,
-            image: '/images/Sports Bra - Pink.avif',
+            image: `${process.env.PUBLIC_URL}/images/Sports Bra - Pink.avif`,
             category: 'ladies-garments',
             description: 'High-performance sports bra in vibrant pink - Perfect for workouts',
             rating: { rate: 4.6, count: 234 },
@@ -52,7 +58,7 @@ export default function Items({ token, cartCount, setCartCount, onCartUpdate, se
             _id: 'bra003',
             name: 'Wireless Comfort Bra - Nude',
             price: 32.99,
-            image: '/images/Wireless Comfort Bra - Nude.webp',
+            image: `${process.env.PUBLIC_URL}/images/Wireless Comfort Bra - Nude.webp`,
             category: 'ladies-garments',
             description: 'Ultra-comfortable nude wireless bra with seamless design',
             rating: { rate: 4.7, count: 189 },
@@ -62,7 +68,7 @@ export default function Items({ token, cartCount, setCartCount, onCartUpdate, se
             _id: 'bra004',
             name: 'Lace Bralette - White',
             price: 25.99,
-            image: '/images/Lace Bralette - White.png',
+            image: `${process.env.PUBLIC_URL}/images/Lace Bralette - White.png`,
             category: 'ladies-garments',
             description: 'Delicate white lace bralette with soft cups and comfortable fit',
             rating: { rate: 4.5, count: 112 },
@@ -72,7 +78,7 @@ export default function Items({ token, cartCount, setCartCount, onCartUpdate, se
             _id: 'panty001',
             name: 'Silk Panty Set - Red',
             price: 22.99,
-            image: '/images/Silk Panty Set - Red.jpg',
+            image: `${process.env.PUBLIC_URL}/images/Silk Panty Set - Red.jpg`,
             category: 'ladies-garments',
             description: 'Luxurious red silk panty set with lace trim - Premium comfort',
             rating: { rate: 4.9, count: 78 },
@@ -82,7 +88,7 @@ export default function Items({ token, cartCount, setCartCount, onCartUpdate, se
             _id: 'panty002',
             name: 'Cotton Bikini Panties - 3 Pack',
             price: 18.99,
-            image: '/images/Cotton Bikini Panties.webp',
+            image: `${process.env.PUBLIC_URL}/images/Cotton Bikini Panties.webp`,
             category: 'ladies-garments',
             description: 'Soft cotton bikini panties in assorted colors - Everyday comfort',
             rating: { rate: 4.4, count: 267 },
@@ -92,7 +98,7 @@ export default function Items({ token, cartCount, setCartCount, onCartUpdate, se
             _id: 'panty003',
             name: 'Lace Thong - Black',
             price: 16.99,
-            image: '/images/Lace Thong - Black.avif',
+            image: `${process.env.PUBLIC_URL}/images/Lace Thong - Black.avif`,
             category: 'ladies-garments',
             description: 'Elegant black lace thong with delicate design and comfortable fit',
             rating: { rate: 4.3, count: 145 },
@@ -102,7 +108,7 @@ export default function Items({ token, cartCount, setCartCount, onCartUpdate, se
             _id: 'set001',
             name: 'Matching Bra & Panty Set - Purple',
             price: 48.99,
-            image: '/images/Matching Bra & Panty Set - Purple.webp',
+            image: `${process.env.PUBLIC_URL}/images/Matching Bra & Panty Set - Purple.webp`,
             category: 'ladies-garments',
             description: 'Beautiful purple matching bra and panty set with lace details',
             rating: { rate: 4.8, count: 198 },
@@ -112,7 +118,7 @@ export default function Items({ token, cartCount, setCartCount, onCartUpdate, se
             _id: 'panty004',
             name: 'Premium Panty Collection',
             price: 21.99,
-            image: '/images/panty.avif',
+            image: `${process.env.PUBLIC_URL}/images/panty.avif`,
             category: 'ladies-garments',
             description: 'Premium quality panty with superior comfort and elegant design',
             rating: { rate: 4.6, count: 145 },
@@ -133,15 +139,15 @@ export default function Items({ token, cartCount, setCartCount, onCartUpdate, se
           const braTypes = ['T-Shirt Bra', 'Balconette Bra', 'High-Waist Panty'];
           const colors = ['Beige', 'Navy', 'Rose Gold'];
           const imageMap = {
-            'T-Shirt Bra': '/images/T-Shirt Bra - Beige.webp',
-            'Balconette Bra': '/images/Balconette Bra - Navy.avif',
-            'High-Waist Panty': '/images/High-Waist Panty - Rose Gold.avif'
+            'T-Shirt Bra': `${process.env.PUBLIC_URL}/images/T-Shirt Bra - Beige.webp`,
+            'Balconette Bra': `${process.env.PUBLIC_URL}/images/Balconette Bra - Navy.avif`,
+            'High-Waist Panty': `${process.env.PUBLIC_URL}/images/High-Waist Panty - Rose Gold.avif`
           };
           return {
             _id: `ext-${product.id}`,
             name: `${braTypes[index]} - ${colors[index]}`,
             price: product.price * 1.3,
-            image: imageMap[braTypes[index]] || `/images/panty.avif`,
+            image: imageMap[braTypes[index]] || `${process.env.PUBLIC_URL}/images/panty.avif`,
             category: 'ladies-garments',
             description: `Premium ${braTypes[index].toLowerCase()} with superior comfort and support`,
             rating: { rate: product.rating?.rate || 4.6, count: product.rating?.count || 120 },
@@ -257,7 +263,7 @@ export default function Items({ token, cartCount, setCartCount, onCartUpdate, se
     }
 
     try {
-      const res = await axios.get('http://localhost:5000/carts', {
+      const res = await axios.get('http://localhost:5000/api/carts', {
         headers: { Authorization: `Bearer ${token}` }
       });
       const carts = res.data || [];
@@ -282,7 +288,7 @@ export default function Items({ token, cartCount, setCartCount, onCartUpdate, se
 
     setAddingToCart(item._id);
     try {
-      await axios.post('http://localhost:5000/carts', { item_id: item._id }, {
+      await axios.post('http://localhost:5000/api/carts', { item_id: item._id }, {
         headers: { Authorization: `Bearer ${token}` }
       });
       const newCartCount = cartCount + 1;
@@ -308,7 +314,7 @@ export default function Items({ token, cartCount, setCartCount, onCartUpdate, se
     }
 
     try {
-      const res = await axios.get('http://localhost:5000/carts', {
+      const res = await axios.get('http://localhost:5000/api/carts', {
         headers: { Authorization: `Bearer ${token}` }
       });
       const carts = res.data || [];
@@ -341,7 +347,7 @@ export default function Items({ token, cartCount, setCartCount, onCartUpdate, se
     }
 
     try {
-      await axios.post('http://localhost:5000/orders', {}, {
+      await axios.post('http://localhost:5000/api/orders', {}, {
         headers: { Authorization: `Bearer ${token}` }
       });
       setCartCount(0);
@@ -363,7 +369,7 @@ export default function Items({ token, cartCount, setCartCount, onCartUpdate, se
     }
 
     try {
-      const res = await axios.get('http://localhost:5000/orders', {
+      const res = await axios.get('http://localhost:5000/api/orders', {
         headers: { Authorization: `Bearer ${token}` }
       });
       const orders = res.data || [];
@@ -541,13 +547,10 @@ export default function Items({ token, cartCount, setCartCount, onCartUpdate, se
             {filteredItems.map(item => (
               <div key={item._id} className="product-card">
                 <div className="product-image-container">
-                  <img
-                    src={item.image || 'https://via.placeholder.com/300x250?text=' + encodeURIComponent(item.name)}
+                  <ImageWithFallback
+                    src={item.image}
                     alt={item.name}
                     className="product-image"
-                    onError={(e) => {
-                      e.target.src = 'https://via.placeholder.com/300x250/f8f9fa/666?text=' + encodeURIComponent(item.name);
-                    }}
                   />
                   <button className="wishlist-btn" title="Add to Wishlist">
                     ♡

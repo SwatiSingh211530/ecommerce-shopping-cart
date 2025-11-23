@@ -75,7 +75,7 @@ export default function App() {
   // Remove item from cart
   const handleRemoveFromCart = async (itemId) => {
     try {
-      const response = await fetch('http://localhost:3001/api/carts/remove', {
+      const response = await fetch('http://localhost:5000/api/carts/remove', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

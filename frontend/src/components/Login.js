@@ -15,7 +15,7 @@ export default function Login({ onLogin, switchToRegister }) {
     
     setLoading(true);
     try {
-      const res = await axios.post('http://localhost:5000/users/login', { username, password });
+      const res = await axios.post('http://localhost:5000/api/users/login', { username, password });
       const { token } = res.data;
       if (!token) return window.alert('❌ Invalid username/password');
       onLogin(token);

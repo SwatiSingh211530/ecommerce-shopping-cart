@@ -27,7 +27,7 @@ export default function Register({ onRegister, switchToLogin }) {
     
     setLoading(true);
     try {
-      await axios.post('http://localhost:5000/users', { username, password });
+      await axios.post('http://localhost:5000/api/users', { username, password });
       window.alert('✅ Account created successfully!\n\nYou can now login with your credentials.');
       onRegister();
     } catch (err) {
